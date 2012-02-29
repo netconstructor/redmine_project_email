@@ -1,0 +1,47 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'project_email', :plugin => 'redmine_project_email' %>
+<% end %>
+
+<% labelled_tabular_form_for :project_email, @email,
+  :url => { :controller => 'project_email', :action => 'save', :project_id => @project.id },
+  :html => { :multipart => true, :id => 'project-email-form', :class => 'tabular' } do |f|
+%>
+<div class="box">
+  <p>
+  <label for="sender"><%= l(:field_sender) %></label>
+  <span name="sender"><%= @email.sender.name %> (<%= @email.sender.mail %>)</span>
+  </p>
+
+  <p>
+  <label for="recipients"><%= l(:field_recipients) %></label>
+  <span class="recipients" name="recipients">
+    <span class="recipient">
+      <span class="recipient-part"><%= l(:label_to) %></span>
+      <span class="recipient-part"><%= l(:label_cc) %></span>
+      <span class="recipient-part"><%= l(:label_bcc) %></span>
+      <span class="recipient-part"><%= l(:label_name) %></span>
+      <span class="recipient-part"><%= l(:label_email) %></span>
+    </span>
+    <% @available_recipients.each do |r| %>
+      <span class="recipient">
+        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="true" <%= 'checked="true"' if r.to %>/></span>
+        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="true" <%= 'checked="true"' if r.cc %>/></span>
+        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="true" <%= 'checked="true"' if r.bcc %>/></span>
+        <span class="recipient-part"><%= r.name %></span>
+        <span class="recipient-part">(<%= r.mail %>)</span>
+      </span>
+    <% end %>
+  </span>
+  </p>
+
+  <p><%= f.text_field :subject, :size => 80 %></p>
+  <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
+
+  <%= f.hidden_field :project_id %>
+  <%= f.hidden_field :id %>
+</div>
+
+<%= submit_tag l(:button_send), :name => 'send' %>
+<%= submit_tag l(:button_save_draft) %>
+<% end %>
+

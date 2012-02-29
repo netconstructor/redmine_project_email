@@ -1,0 +1,13 @@
+.recipients {
+  display: inline-table;
+}
+.recipient {
+  display: table-row;
+}
+.recipient-part {
+  display: table-cell;
+  padding-right: 0.5em;
+}
+form input[type="checkbox"] {
+  max-width: 100%!important;
+}

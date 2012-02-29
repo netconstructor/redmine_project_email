@@ -1,3 +1,16 @@
 # English strings go here for Rails i18n
 en:
-  my_label: "My label"
+  button_compose: 'Compose'
+  button_save_draft: 'Save draft'
+  button_send: 'Send'
+
+  field_body: 'Body'
+  field_sender: 'From'
+  field_subject: 'Subject'
+  field_recipients: 'Recipients'
+
+  label_bcc: 'BCC'
+  label_cc:  'CC'
+  label_email: 'Email'
+  label_name: 'Name'
+  label_to: 'To'
