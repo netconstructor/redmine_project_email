@@ -14,3 +14,5 @@ en:
   label_email: 'Email'
   label_name: 'Name'
   label_to: 'To'
+
+  message_draft_saved: 'Draft saved'

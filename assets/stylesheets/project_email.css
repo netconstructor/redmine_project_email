@@ -1,10 +1,10 @@
-.recipients {
+.table {
   display: inline-table;
 }
-.recipient {
+.table-header, .table-row {
   display: table-row;
 }
-.recipient-part {
+.table-cell {
   display: table-cell;
   padding-right: 0.5em;
 }

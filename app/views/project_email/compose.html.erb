@@ -3,7 +3,7 @@
 <% end %>
 
 <% labelled_tabular_form_for :project_email, @email,
-  :url => { :controller => 'project_email', :action => 'save', :project_id => @project.id },
+  :url => { :controller => 'project_email', :action => 'save' },
   :html => { :multipart => true, :id => 'project-email-form', :class => 'tabular' } do |f|
 %>
 <div class="box">
@@ -14,21 +14,21 @@
 
   <p>
   <label for="recipients"><%= l(:field_recipients) %></label>
-  <span class="recipients" name="recipients">
-    <span class="recipient">
-      <span class="recipient-part"><%= l(:label_to) %></span>
-      <span class="recipient-part"><%= l(:label_cc) %></span>
-      <span class="recipient-part"><%= l(:label_bcc) %></span>
-      <span class="recipient-part"><%= l(:label_name) %></span>
-      <span class="recipient-part"><%= l(:label_email) %></span>
+  <span class="table" name="recipients">
+    <span class="table-header">
+      <span class="table-cell"><%= l(:label_to) %></span>
+      <span class="table-cell"><%= l(:label_cc) %></span>
+      <span class="table-cell"><%= l(:label_bcc) %></span>
+      <span class="table-cell"><%= l(:label_name) %></span>
+      <span class="table-cell"><%= l(:label_email) %></span>
     </span>
     <% @available_recipients.each do |r| %>
-      <span class="recipient">
-        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="true" <%= 'checked="true"' if r.to %>/></span>
-        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="true" <%= 'checked="true"' if r.cc %>/></span>
-        <span class="recipient-part"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="true" <%= 'checked="true"' if r.bcc %>/></span>
-        <span class="recipient-part"><%= r.name %></span>
-        <span class="recipient-part">(<%= r.mail %>)</span>
+      <span class="table-row">
+        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="true" <%= 'checked="true"' if r.to %>/></span>
+        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="true" <%= 'checked="true"' if r.cc %>/></span>
+        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="true" <%= 'checked="true"' if r.bcc %>/></span>
+        <span class="table-cell"><%= r.name %></span>
+        <span class="table-cell">(<%= r.mail %>)</span>
       </span>
     <% end %>
   </span>
@@ -38,7 +38,7 @@
   <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
 
   <%= f.hidden_field :project_id %>
-  <%= f.hidden_field :id %>
+  <%= f.hidden_field :id if not @email.id.nil? %>
 </div>
 
 <%= submit_tag l(:button_send), :name => 'send' %>
