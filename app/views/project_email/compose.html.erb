@@ -1,9 +1,9 @@
 <% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'project_email', :plugin => 'redmine_project_email' %>
+  <%= stylesheet_link_tag :project_email, :plugin => :redmine_project_email %>
 <% end %>
 
 <% labelled_tabular_form_for :project_email, @email,
-  :url => { :controller => 'project_email', :action => 'save' },
+  :url => { :controller => :project_email, :action => :save },
   :html => { :multipart => true, :id => 'project-email-form', :class => 'tabular' } do |f|
 %>
 <div class="box">
@@ -41,7 +41,7 @@
   <%= f.hidden_field :id if not @email.id.nil? %>
 </div>
 
-<%= submit_tag l(:button_send), :name => 'send' %>
+<%= submit_tag l(:button_send), :name => :send %>
 <%= submit_tag l(:button_save_draft) %>
 <% end %>
 

@@ -1,0 +1,20 @@
+<div class="table">
+  <% if emails.each do |email| %>
+    <span class="table-row">
+      <span class="table-cell">
+        <%= email.subject %>
+      </span>
+      <span class="table-cell">
+        <%= email.body_summary 100 %>
+      </span>
+      <span class="table-cell">
+        <%= link_to l(:link_edit), { :action => :compose, :project_id => @project.identifier, :email_id => email.id } %>
+      </span>
+      <span class="table-cell">
+        <%= link_to l(:link_delete), { :action => :delete, :project_id => @project.identifier, :email_id => email.id } %>
+      </span>
+    </span>
+  <% end.empty? %>
+    <%= l(empty_message) %>
+  <% end %>
+<div>

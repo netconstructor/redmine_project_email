@@ -8,5 +8,5 @@ Redmine::Plugin.register :redmine_project_email do
   # url ''
 
   permission :project_email, { :project_email => [:index] }, :public => true
-  menu :project_menu, :project_email, { :controller => 'project_email', :action => 'index' }, :caption => :label_email, :after => :activity, :param => :project_id
+  menu :project_menu, :project_email, { :controller => :project_email, :action => :index }, :caption => :label_email, :after => :activity, :param => :project_id
 end
