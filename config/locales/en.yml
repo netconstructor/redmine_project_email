@@ -1,6 +1,7 @@
 # English strings go here for Rails i18n
 en:
   button_compose: 'Compose'
+  button_edit_as_new: 'Edit as new draft'
   button_save_draft: 'Save draft'
   button_send: 'Send'
 
@@ -14,11 +15,14 @@ en:
   label_drafts: 'Drafts'
   label_email: 'Email'
   label_name: 'Name'
+  label_no_recipients: 'No recipients'
   label_sent: 'Sent'
   label_to: 'To'
 
-  link_edit: 'edit'
+  link_back: '<<back'
   link_delete: 'delete'
+  link_edit: 'edit'
+  link_view: 'view'
 
   message_could_not_find_email: 'Could not find email'
   message_email_deleted: 'Email deleted'

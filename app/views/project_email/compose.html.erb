@@ -8,19 +8,19 @@
 %>
 <div class="box">
   <p>
-  <label for="sender"><%= l(:field_sender) %></label>
+  <label for="sender"><%= le(:field_sender) %></label>
   <span name="sender"><%= @email.sender.name %> (<%= @email.sender.mail %>)</span>
   </p>
 
   <p>
-  <label for="recipients"><%= l(:field_recipients) %></label>
+  <label for="recipients"><%= le(:field_recipients) %></label>
   <span class="table" name="recipients">
     <span class="table-header">
-      <span class="table-cell"><%= l(:label_to) %></span>
-      <span class="table-cell"><%= l(:label_cc) %></span>
-      <span class="table-cell"><%= l(:label_bcc) %></span>
-      <span class="table-cell"><%= l(:label_name) %></span>
-      <span class="table-cell"><%= l(:label_email) %></span>
+      <span class="table-cell"><%= le(:label_to) %></span>
+      <span class="table-cell"><%= le(:label_cc) %></span>
+      <span class="table-cell"><%= le(:label_bcc) %></span>
+      <span class="table-cell"><%= le(:label_name) %></span>
+      <span class="table-cell"><%= le(:label_email) %></span>
     </span>
     <% @available_recipients.each do |r| %>
       <span class="table-row">
@@ -41,7 +41,7 @@
   <%= f.hidden_field :id if not @email.id.nil? %>
 </div>
 
-<%= submit_tag l(:button_send), :name => :send %>
-<%= submit_tag l(:button_save_draft) %>
+<%= submit_tag le(:button_send), :name => :send %>
+<%= submit_tag le(:button_save_draft) %>
 <% end %>
 

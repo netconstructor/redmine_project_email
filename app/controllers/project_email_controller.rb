@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'date'
 
 class ProjectEmailController < ApplicationController
   unloadable
@@ -7,17 +8,23 @@ class ProjectEmailController < ApplicationController
     @project = Project.find params[:project_id]
     base_query = 'sender_id = ? AND project_id = ? AND sent_date IS '
     query_params = [User.current.id, @project.id]
-    @sent   = ProjectEmail.all :conditions => [base_query + 'NOT NULL'] + query_params, :order => :sent_date
+    @sent   = ProjectEmail.all :conditions => [base_query + 'NOT NULL'] + query_params, :order => 'sent_date DESC'
     @drafts = ProjectEmail.all :conditions => [base_query + 'NULL'] + query_params, :order => :subject
+  end
+
+  def view
+    @project = Project.find params[:project_id]
+    @email = _find_current_email
+
+    if not @email then
+      flash[:error] = t :message_could_not_find_email
+      redirect_to :action => :index, :project_id => params[:project_id]
+    end
   end
 
   def compose
     @project = Project.find params[:project_id]
-    @email = ProjectEmail.first :conditions => {
-      :sender_id  => User.current.id,
-      :project_id => @project.id,
-      :id => params[:email_id]
-    }
+    @email = _find_current_email
 
     if not @email then
       @email = ProjectEmail.new :project => @project, :sender => User.current
@@ -81,8 +88,20 @@ class ProjectEmailController < ApplicationController
   end
 
   def send_email
+    @email.sent_date = DateTime.now
+    @email.save
     flash[:error] = 'TODO: Send email'
     redirect_to :action => :index, :project_id => @email.project.identifier
+  end
+
+  private
+
+  def _find_current_email
+    return ProjectEmail.first :conditions => {
+      :sender_id  => User.current.id,
+      :project_id => @project.id,
+      :id => params[:email_id]
+    }
   end
 
   def _load_and_save_email_from_compose

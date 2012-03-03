@@ -7,16 +7,20 @@
       <%= email.body_summary 100 %>
     </td>
     <td>
-      <%= link_to l(:link_edit), { :action => :compose, :project_id => @project.identifier, :email_id => email.id } %>
+      <% if defined? editable and editable then %>
+        <%= link_to le(:link_edit), { :action => :compose, :project_id => @project.identifier, :email_id => email.id } %>
+      <% else %>
+        <%= link_to le(:link_view), { :action => :view, :project_id => @project.identifier, :email_id => email.id } %>
+      <% end %>
     </td>
     <td>
-      <%= link_to l(:link_delete), { :action => :delete, :project_id => @project.identifier, :email_id => email.id } %>
+      <%= link_to le(:link_delete), { :action => :delete, :project_id => @project.identifier, :email_id => email.id } %>
     </td>
   </tr>
   <% end.empty? %>
   <tr>
     <td colspan="4">
-      <%= l(empty_message) %>
+      <%= le(empty_message) %>
     </td>
   </tr>
 <% end %>

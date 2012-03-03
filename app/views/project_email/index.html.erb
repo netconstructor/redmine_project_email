@@ -14,14 +14,14 @@
   <tbody>
     <tr>
       <td colspan="4">
-        <h2><%= l(:label_drafts) %></h2>
+        <h2><%= le(:label_drafts) %></h2>
       </td>
     </tr>
-    <%= render :partial => 'email_list', :locals => { :emails => @drafts, :empty_message => :message_no_drafts } %>
+    <%= render :partial => 'email_list', :locals => { :emails => @drafts, :empty_message => :message_no_drafts, :editable => true } %>
 
     <tr>
       <td colspan="4">
-        <h2><%= l(:label_sent) %></h2>
+        <h2><%= le(:label_sent) %></h2>
       </td>
     </tr>
     <%= render :partial => 'email_list', :locals => { :emails => @sent, :empty_message => :message_no_sent } %>

@@ -1,0 +1,60 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag :project_email, :plugin => :redmine_project_email %>
+<% end %>
+
+<% labelled_tabular_form_for :project_email, @email,
+  :url => { :controller => :project_email, :action => :edit_copy },
+  :html => { :multipart => true, :id => 'project-email-form', :class => 'tabular' } do |f|
+%>
+<%= link_to le(:link_back), { :action => :index, :project_id => @project.identifier } %>
+<%= submit_tag le(:button_edit_as_new) %>
+
+<div class="box">
+  <p>
+  <label for="sender"><%= le(:field_sender) %></label>
+  <span name="sender"><%= @email.sender.name %> (<%= @email.sender.mail %>)</span>
+  </p>
+
+  <% if @email.recipients.any?{|r| r.to} then %>
+    <p>
+    <label for="to"><%= le(:label_to) %></label>
+    <span name="to">
+      <%= @email.recipients.find_all{|r| r.to}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+    </span>
+    </p>
+  <% end %>
+  <% if @email.recipients.any?{|r| r.cc} then %>
+    <p>
+    <label for="cc"><%= le(:label_cc) %></label>
+    <span name="cc">
+      <%= @email.recipients.find_all{|r| r.cc}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+    </span>
+    </p>
+  <% end %>
+  <% if @email.recipients.any?{|r| r.bcc} then %>
+    <p>
+    <label for="bcc"><%= le(:label_bcc) %></label>
+    <span name="bcc">
+      <%= @email.recipients.find_all{|r| r.bcc}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+    </span>
+    </p>
+  <% end %>
+
+  <p>
+  <label for="subject"><%= le(:field_subject) %></label>
+  <span name="subject"><%= @email.subject %></label>
+  </p>
+
+  <p>
+  <label for="body"><%= le(:field_body) %></label>
+  <span name="body"><%= @email.body %></label>
+  </p>
+
+  <%= f.hidden_field :project_id %>
+  <%= f.hidden_field :id %>
+</div>
+
+<%= link_to le(:link_back), { :action => :index, :project_id => @project.identifier } %>
+<%= submit_tag le(:button_edit_as_new) %>
+<% end %>
+
