@@ -7,6 +7,7 @@ en:
 
   field_body: 'Body'
   field_sender: 'From'
+  field_sent: 'Sent'
   field_subject: 'Subject'
   field_recipients: 'Recipients'
 

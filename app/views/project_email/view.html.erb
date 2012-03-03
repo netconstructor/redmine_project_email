@@ -41,6 +41,11 @@
   <% end %>
 
   <p>
+  <label for="sent"><%= le(:field_sent) %></label>
+  <span name="sent"><%= ld(@email.sent_date, :format => :long) %></span>
+  </p>
+
+  <p>
   <label for="subject"><%= le(:field_subject) %></label>
   <span name="subject"><%= @email.subject %></label>
   </p>
