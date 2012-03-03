@@ -15,7 +15,9 @@ class ProjectEmailController < ApplicationController
     @email = ProjectEmail.first :conditions => {
       :sender_id  => User.current.id,
       :project_id => @project.id,
-      :id => params[:email_id] }
+      :id => params[:email_id]
+    }
+
     if not @email then
       @email = ProjectEmail.new :project => @project, :sender => User.current, :sent => false
     end
@@ -45,7 +47,7 @@ class ProjectEmailController < ApplicationController
       if params[:send] then
         send_email
       else
-        flash[:notice] = t(:message_draft_saved)
+        flash[:notice] = t :message_draft_saved
         redirect_to :action => :compose, :project_id => @email.project.identifier, :email_id => @email.id
       end
     else
@@ -54,7 +56,26 @@ class ProjectEmailController < ApplicationController
   end
 
   def delete
-    flash[:error] = 'TODO: Delete email'
+    redirect_to :action => :index if not params[:project_id]
+
+    @project = Project.find params[:project_id]
+
+    email = ProjectEmail.first :conditions => {
+      :sender_id => User.current.id,
+      :project_id => @project.id,
+      :id => params[:email_id]
+    }
+
+    if email then
+      begin
+        email.destroy
+        flash[:notice] = t :message_email_deleted
+      rescue Object => e
+        flash[:error] = t :message_email_delete_failed, :error => e.to_s
+      end
+    else
+      flash[:error] = t :message_could_not_find_email
+    end
     redirect_to :action => :index, :project_id => params[:project_id]
   end
 

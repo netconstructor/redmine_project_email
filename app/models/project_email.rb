@@ -5,6 +5,7 @@ class ProjectEmail < ActiveRecord::Base
   belongs_to :sender,  :class_name => 'User'
   has_many   :recipients, :foreign_key => 'project_email_id',
                           :class_name  => 'ProjectEmailRecipient',
+                          :dependent => :destroy,
                           :autosave => true
 
   def body_summary(len)
@@ -14,10 +15,5 @@ class ProjectEmail < ActiveRecord::Base
     else
       summary
     end
-  end
-
-  def delete
-    recipients.each do |r| r.delete end
-    super
   end
 end
