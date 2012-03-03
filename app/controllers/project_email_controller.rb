@@ -76,7 +76,7 @@ class ProjectEmailController < ApplicationController
     _load_and_save_email_from_compose
     if @email then
       if params[:send] then
-        send_email
+        _send_email
       else
         flash[:notice] = t :message_draft_saved
         redirect_to :action => :compose, :project_id => @email.project.identifier, :email_id => @email.id
@@ -110,14 +110,19 @@ class ProjectEmailController < ApplicationController
     redirect_to :action => :index, :project_id => params[:project_id]
   end
 
-  def send_email
+  private
+
+  def _send_email
     @email.sent_date = DateTime.now
-    @email.save
-    flash[:error] = 'TODO: Send email'
+    begin
+      ProjectEmailMailer.deliver_project_email(@email)
+      @email.save
+      flash[:notice] = t :message_email_sent
+    rescue Object => e
+      flash[:error] = t :message_email_send_failed, :error => e.to_s
+    end
     redirect_to :action => :index, :project_id => @email.project.identifier
   end
-
-  private
 
   def _find_current_email
     return ProjectEmail.first :conditions => {
@@ -166,6 +171,7 @@ class ProjectEmailController < ApplicationController
       end
 
       @email.save
+      @email.reload
     else
       @email = nil
     end
