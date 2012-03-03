@@ -49,6 +49,29 @@ class ProjectEmailController < ApplicationController
     end
   end
 
+  def edit_copy
+    email_params = params[:project_email] || {}
+    email = ProjectEmail.first :conditions => {
+      :sender_id => User.current.id,
+      :project_id => email_params[:project_id],
+      :id => email_params[:id]
+    }
+
+    if email then
+      copy = email.clone
+      copy.sent_date = nil
+      email.recipients.each do |r|
+        recip = r.clone
+        copy.recipients << recip
+      end
+
+      copy.save
+      redirect_to :action => :compose, :project_id => email_params[:project_id], :email_id => copy.id
+    else
+      redirect_to :action => :index, :project_id => email_params[:project_id]
+    end
+  end
+
   def save
     _load_and_save_email_from_compose
     if @email then

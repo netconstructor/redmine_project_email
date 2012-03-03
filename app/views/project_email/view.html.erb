@@ -6,9 +6,6 @@
   :url => { :controller => :project_email, :action => :edit_copy },
   :html => { :multipart => true, :id => 'project-email-form', :class => 'tabular' } do |f|
 %>
-<%= link_to le(:link_back), { :action => :index, :project_id => @project.identifier } %>
-<%= submit_tag le(:button_edit_as_new) %>
-
 <div class="box">
   <p>
   <label for="sender"><%= le(:field_sender) %></label>
