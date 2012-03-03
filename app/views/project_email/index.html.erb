@@ -10,9 +10,20 @@
   <input type="submit" value="Compose" />
 <% end %>
 
-<h2><%= l(:label_drafts) %></h2>
-<%= render :partial => 'email_list', :locals => { :emails => @drafts, :empty_message => :message_no_drafts } %>
+<table id="email-table">
+  <tbody>
+    <tr>
+      <td colspan="4">
+        <h2><%= l(:label_drafts) %></h2>
+      </td>
+    </tr>
+    <%= render :partial => 'email_list', :locals => { :emails => @drafts, :empty_message => :message_no_drafts } %>
 
-<h2><%= l(:label_sent) %></h2>
-<%= render :partial => 'email_list', :locals => { :emails => @sent, :empty_message => :message_no_sent } %>
-
+    <tr>
+      <td colspan="4">
+        <h2><%= l(:label_sent) %></h2>
+      </td>
+    </tr>
+    <%= render :partial => 'email_list', :locals => { :emails => @sent, :empty_message => :message_no_sent } %>
+  </tbody>
+</table>

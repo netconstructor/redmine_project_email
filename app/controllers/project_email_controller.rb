@@ -5,9 +5,10 @@ class ProjectEmailController < ApplicationController
 
   def index
     @project = Project.find params[:project_id]
-    base = { :sender_id => User.current.id, :project_id => @project.id }
-    @sent   = ProjectEmail.all :conditions => base.merge({ :sent => true })
-    @drafts = ProjectEmail.all :conditions => base.merge({ :sent => false })
+    base_query = 'sender_id = ? AND project_id = ? AND sent_date IS '
+    query_params = [User.current.id, @project.id]
+    @sent   = ProjectEmail.all :conditions => [base_query + 'NOT NULL'] + query_params, :order => :sent_date
+    @drafts = ProjectEmail.all :conditions => [base_query + 'NULL'] + query_params, :order => :subject
   end
 
   def compose
@@ -19,7 +20,7 @@ class ProjectEmailController < ApplicationController
     }
 
     if not @email then
-      @email = ProjectEmail.new :project => @project, :sender => User.current, :sent => false
+      @email = ProjectEmail.new :project => @project, :sender => User.current
     end
 
     @available_recipients = @project.users.map do |user|
@@ -91,7 +92,7 @@ class ProjectEmailController < ApplicationController
         begin
           ProjectEmail.find emailp[:id]
         rescue
-          ProjectEmail.new :sender => User.current, :sent => false
+          ProjectEmail.new :sender => User.current
         end
 
       @email.project = Project.find emailp[:project_id]

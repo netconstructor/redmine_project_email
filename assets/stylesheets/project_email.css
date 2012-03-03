@@ -11,3 +11,9 @@
 form input[type="checkbox"] {
   max-width: 100%!important;
 }
+#email-table {
+  width: auto;
+}
+#email-table td {
+  padding-right: 0.5em;
+}

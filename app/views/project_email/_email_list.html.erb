@@ -1,20 +1,22 @@
-<div class="table">
-  <% if emails.each do |email| %>
-    <span class="table-row">
-      <span class="table-cell">
-        <%= email.subject %>
-      </span>
-      <span class="table-cell">
-        <%= email.body_summary 100 %>
-      </span>
-      <span class="table-cell">
-        <%= link_to l(:link_edit), { :action => :compose, :project_id => @project.identifier, :email_id => email.id } %>
-      </span>
-      <span class="table-cell">
-        <%= link_to l(:link_delete), { :action => :delete, :project_id => @project.identifier, :email_id => email.id } %>
-      </span>
-    </span>
+<% if emails.each_with_index do |email, i| %>
+  <tr class="alt-<%= i % 2 %>">
+    <td>
+      <%= email.subject %>
+    </td>
+    <td>
+      <%= email.body_summary 100 %>
+    </td>
+    <td>
+      <%= link_to l(:link_edit), { :action => :compose, :project_id => @project.identifier, :email_id => email.id } %>
+    </td>
+    <td>
+      <%= link_to l(:link_delete), { :action => :delete, :project_id => @project.identifier, :email_id => email.id } %>
+    </td>
+  </tr>
   <% end.empty? %>
-    <%= l(empty_message) %>
-  <% end %>
-<div>
+  <tr>
+    <td colspan="4">
+      <%= l(empty_message) %>
+    </td>
+  </tr>
+<% end %>
