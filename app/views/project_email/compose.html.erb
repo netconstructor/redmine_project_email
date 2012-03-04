@@ -14,36 +14,33 @@
 
   <p style="overflow:visible">
   <label for="recipients"><%= le(:field_recipients) %></label>
-  <div class="scroll-table-container">
-    <table name="recipients">
-      <thead>
-        <tr>
-          <th><%= le(:label_to) %></th>
-          <th><%= le(:label_cc) %></th>
-          <th><%= le(:label_bcc) %></th>
-          <th><%= le(:label_name) %></th>
-          <th><%= le(:label_email) %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="5" class="header"><%= le(:table_header_groups) %></td>
-          <%= render :partial => 'compose_recipient_row', :collection => @available_groups, :as => :r %>
-          <td colspan="5" class="header"><%= le(:table_header_users) %></td>
-          <%= render :partial => 'compose_recipient_row', :collection => @available_recipients, :as => :r %>
-        </tbody>
-      </table>
-    </div>
-    </p>
+  <span class="recipient-list">
+    <span class="header" style="clear: right;">
+      <span class="col to"><%= le(:label_to) %></span>
+      <span class="col cc"><%= le(:label_cc) %></span>
+      <span class="col bcc"><%= le(:label_bcc) %></span>
+      <span class="col name"><%= le(:label_name) %></span>
+      <span class="col email"><%= le(:label_email) %></span>
+    </span>
+    <span class="header"><%= le(:table_header_groups) %></span>
+    <span class="recipient-group">
+      <%= render :partial => 'compose_recipient_row', :collection => @available_groups, :as => :r %>
+    </span>
+    <span class="header"><%= le(:table_header_users) %></span>
+    <span class="recipient-group">
+      <%= render :partial => 'compose_recipient_row', :collection => @available_recipients, :as => :r %>
+    </span>
+  </span>
+  </p>
 
-    <p><%= f.text_field :subject, :size => 80 %></p>
-    <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
+  <p><%= f.text_field :subject, :size => 80 %></p>
+  <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
 
-    <%= f.hidden_field :project_id %>
-    <%= f.hidden_field :id if not @email.id.nil? %>
-  </div>
+  <%= f.hidden_field :project_id %>
+  <%= f.hidden_field :id if not @email.id.nil? %>
+</div>
 
-  <%= submit_tag le(:button_send), :name => :send %>
-  <%= submit_tag le(:button_save_draft) %>
+<%= submit_tag le(:button_send), :name => :send %>
+<%= submit_tag le(:button_save_draft) %>
 <% end %>
 

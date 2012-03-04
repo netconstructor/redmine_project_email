@@ -7,10 +7,36 @@ form input[type="checkbox"] {
 #email-table td {
   padding-right: 0.5em;
 }
-.scroll-table-container {
-  width: auto;
-  height: 10em;
-  overflow-x: visible;
-  overflow-y: auto;
+
+.recipient-list .header, .recipient-list .recipient {
+  float: left;
+  clear: both;
+}
+.recipient-list .header {
+  font-weight: bold;
+}
+.recipient-group {
+  max-height: 2em;
+  overflow-x: hidden;
+  overflow-y: scroll;
   resize: vertical;
+}
+.col {
+  display: inline-block;
+  float: left;
+}
+.col.to {
+  width: 2em;
+}
+.col.cc {
+  width: 2em;
+}
+.col.bcc {
+  width: 3em;
+}
+.col.name {
+  width: 15em;
+}
+.col.email {
+  width: auto;
 }

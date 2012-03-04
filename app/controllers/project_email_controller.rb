@@ -36,6 +36,7 @@ class ProjectEmailController < ApplicationController
       r.user_id = user.id
       r.name = user.name
       r.mail = user.mail
+      r.is_user = user.is_a? User
       if existing then
         r.to  = existing.to
         r.cc  = existing.cc

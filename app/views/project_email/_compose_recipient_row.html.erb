@@ -1,11 +1,9 @@
-<tr>
-  <td><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="1" <%= 'checked="true"' if r.to %></td>
-  <td><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="1" <%= 'checked="true"' if r.cc %></td>
-  <td><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="1" <%= 'checked="true"' if r.bcc %></td>
-  <td><%= r.name %></td>
-  <% if r.mail and not r.mail.blank? then %>
-    <td>(<%= r.mail %>)</td>
-  <% else %>
-    <td><%= le(:message_no_email_on_file) %></td>
+<span class="recipient">
+  <span class="col to"> <input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="1" <%= 'checked="true"' if r.to %>  /></span>
+  <span class="col cc"> <input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="1" <%= 'checked="true"' if r.cc %>  /></span>
+  <span class="col bcc"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="1" <%= 'checked="true"' if r.bcc %>/></span>
+  <span class="col name"><%= r.name %></span>
+  <% if r.is_user then %>
+    <span class="col email"><%=if r.mail and not r.mail.blank? then r.mail else le(:message_no_email_on_file) end %></span>
   <% end %>
-</tr>
+</span>

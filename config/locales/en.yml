@@ -5,6 +5,11 @@ en:
   button_save_draft: 'Save draft'
   button_send: 'Send'
 
+  error_email_requires_subject: 'a subject is required'
+  error_email_requires_body: 'a body is required'
+  error_email_requires_recipient: 'at least one recipient is required'
+  error_combine: '%{left} and %{right}'
+
   field_body: 'Body'
   field_sender: 'From'
   field_sent: 'Sent'
@@ -29,8 +34,8 @@ en:
 
   message_could_not_find_email: 'Could not find email'
   message_email_deleted: 'Email deleted'
-  message_email_delete_failed: 'Failed to delete email due to the following error: %{error}'
-  message_email_send_failed: 'Failed to send email due to the following error: %{error}'
+  message_email_delete_failed: 'Failed to delete the email due to the following error: %{error}.'
+  message_email_send_failed: 'Could not send the email because %{error}.'
   message_email_sent: 'Email sent'
   message_draft_saved: 'Draft saved'
   message_no_drafts: 'No drafts have been saved'
