@@ -11,6 +11,8 @@ en:
   field_subject: 'Subject'
   field_recipients: 'Recipients'
 
+  format_name_email: '%{name} (%{email})'
+
   label_bcc: 'BCC'
   label_cc:  'CC'
   label_drafts: 'Drafts'
@@ -27,9 +29,15 @@ en:
 
   message_could_not_find_email: 'Could not find email'
   message_email_deleted: 'Email deleted'
-  message_email_delete_failed: 'Failed to delete email due to the following error: {{error}}'
-  message_email_send_failed: 'Failed to send email due to the following error: {{error}}'
+  message_email_delete_failed: 'Failed to delete email due to the following error: %{error}'
+  message_email_send_failed: 'Failed to send email due to the following error: %{error}'
   message_email_sent: 'Email sent'
   message_draft_saved: 'Draft saved'
   message_no_drafts: 'No drafts have been saved'
   message_no_sent: 'No emails have been sent'
+  message_no_email_on_file: 'No email on file'
+
+  symbol_email_list_separator: '; '
+
+  table_header_groups: 'Groups (expanded to users when sent)'
+  table_header_users: 'Users'

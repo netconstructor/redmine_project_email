@@ -9,14 +9,14 @@
 <div class="box">
   <p>
   <label for="sender"><%= le(:field_sender) %></label>
-  <span name="sender"><%= @email.sender.name %> (<%= @email.sender.mail %>)</span>
+  <span name="sender"><%= le(:format_name_email, :name => @email.sender.name, :email => @email.sender.mail) %>
   </p>
 
   <% if @email.recipients.any?{|r| r.to} then %>
     <p>
     <label for="to"><%= le(:label_to) %></label>
     <span name="to">
-      <%= @email.recipients.find_all{|r| r.to}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+      <%= view_recipients @email, :to %>
     </span>
     </p>
   <% end %>
@@ -24,7 +24,7 @@
     <p>
     <label for="cc"><%= le(:label_cc) %></label>
     <span name="cc">
-      <%= @email.recipients.find_all{|r| r.cc}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+      <%= view_recipients @email, :cc %>
     </span>
     </p>
   <% end %>
@@ -32,7 +32,7 @@
     <p>
     <label for="bcc"><%= le(:label_bcc) %></label>
     <span name="bcc">
-      <%= @email.recipients.find_all{|r| r.bcc}.map{|r| "#{r.user.name} (#{r.user.mail})"}.sort.join '; ' %>
+      <%= view_recipients @email, :bcc %>
     </span>
     </p>
   <% end %>

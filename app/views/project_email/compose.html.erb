@@ -12,36 +12,38 @@
   <span name="sender"><%= @email.sender.name %> (<%= @email.sender.mail %>)</span>
   </p>
 
-  <p>
+  <p style="overflow:visible">
   <label for="recipients"><%= le(:field_recipients) %></label>
-  <span class="table" name="recipients">
-    <span class="table-header">
-      <span class="table-cell"><%= le(:label_to) %></span>
-      <span class="table-cell"><%= le(:label_cc) %></span>
-      <span class="table-cell"><%= le(:label_bcc) %></span>
-      <span class="table-cell"><%= le(:label_name) %></span>
-      <span class="table-cell"><%= le(:label_email) %></span>
-    </span>
-    <% @available_recipients.each do |r| %>
-      <span class="table-row">
-        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[to]]]" value="true" <%= 'checked="true"' if r.to %>/></span>
-        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[cc]]]" value="true" <%= 'checked="true"' if r.cc %>/></span>
-        <span class="table-cell"><input type="checkbox" name="project_email[recipients[<%= r.user_id %>[bcc]]]" value="true" <%= 'checked="true"' if r.bcc %>/></span>
-        <span class="table-cell"><%= r.name %></span>
-        <span class="table-cell">(<%= r.mail %>)</span>
-      </span>
-    <% end %>
-  </span>
-  </p>
+  <div class="scroll-table-container">
+    <table name="recipients">
+      <thead>
+        <tr>
+          <th><%= le(:label_to) %></th>
+          <th><%= le(:label_cc) %></th>
+          <th><%= le(:label_bcc) %></th>
+          <th><%= le(:label_name) %></th>
+          <th><%= le(:label_email) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="5" class="header"><%= le(:table_header_groups) %></td>
+          <%= render :partial => 'compose_recipient_row', :collection => @available_groups, :as => :r %>
+          <td colspan="5" class="header"><%= le(:table_header_users) %></td>
+          <%= render :partial => 'compose_recipient_row', :collection => @available_recipients, :as => :r %>
+        </tbody>
+      </table>
+    </div>
+    </p>
 
-  <p><%= f.text_field :subject, :size => 80 %></p>
-  <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
+    <p><%= f.text_field :subject, :size => 80 %></p>
+    <p><%= f.text_area :body, :cols => 60, :rows => (@email.body.blank? ? 10 : [[10, @email.body.count('\n')].max, 100].min) %></p>
 
-  <%= f.hidden_field :project_id %>
-  <%= f.hidden_field :id if not @email.id.nil? %>
-</div>
+    <%= f.hidden_field :project_id %>
+    <%= f.hidden_field :id if not @email.id.nil? %>
+  </div>
 
-<%= submit_tag le(:button_send), :name => :send %>
-<%= submit_tag le(:button_save_draft) %>
+  <%= submit_tag le(:button_send), :name => :send %>
+  <%= submit_tag le(:button_save_draft) %>
 <% end %>
 

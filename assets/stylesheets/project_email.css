@@ -1,13 +1,3 @@
-.table {
-  display: inline-table;
-}
-.table-header, .table-row {
-  display: table-row;
-}
-.table-cell {
-  display: table-cell;
-  padding-right: 0.5em;
-}
 form input[type="checkbox"] {
   max-width: 100%!important;
 }
@@ -16,4 +6,11 @@ form input[type="checkbox"] {
 }
 #email-table td {
   padding-right: 0.5em;
+}
+.scroll-table-container {
+  width: auto;
+  height: 10em;
+  overflow-x: visible;
+  overflow-y: auto;
+  resize: vertical;
 }

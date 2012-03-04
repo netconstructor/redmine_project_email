@@ -30,7 +30,7 @@ class ProjectEmailController < ApplicationController
       @email = ProjectEmail.new :project => @project, :sender => User.current
     end
 
-    @available_recipients = @project.users.map do |user|
+    make_recipient_model = Proc.new do |user|
       existing = @email.recipients.first :conditions => { :user_id => user.id }
       r = OpenStruct.new
       r.user_id = user.id
@@ -47,6 +47,10 @@ class ProjectEmailController < ApplicationController
       end
       r
     end
+
+    project_members = @project.member_principals.map {|m| m.principal}
+    @available_groups     = project_members.find_all {|m| m.is_a? Group}.map &make_recipient_model
+    @available_recipients = project_members.find_all {|m| m.is_a? User}.map  &make_recipient_model
   end
 
   def edit_copy

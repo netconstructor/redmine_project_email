@@ -16,4 +16,26 @@ class ProjectEmail < ActiveRecord::Base
       summary
     end
   end
+
+  def mail_to
+    _mail_for :to
+  end
+
+  def mail_cc
+    _mail_for :cc
+  end
+
+  def mail_bcc
+    _mail_for :bcc
+  end
+
+  private
+
+  def _mail_for(method)
+    recips = []
+    self.recipients.find_all {|r| r.send(method)}.each do |r|
+      recips.concat r.users.map {|u| u.mail}
+    end
+    recips.uniq.sort
+  end
 end
