@@ -4,8 +4,9 @@ require 'date'
 class ProjectEmailController < ApplicationController
   unloadable
 
+  before_filter :require_login, :find_project, :authorize
+
   def index
-    @project = Project.find params[:project_id]
     base_query = 'sender_id = ? AND project_id = ? AND sent_date IS '
     query_params = [User.current.id, @project.id]
     @sent   = ProjectEmail.all :conditions => [base_query + 'NOT NULL'] + query_params, :order => 'sent_date DESC'
@@ -13,7 +14,6 @@ class ProjectEmailController < ApplicationController
   end
 
   def view
-    @project = Project.find params[:project_id]
     @email = _find_current_email
 
     if not @email then
@@ -23,7 +23,6 @@ class ProjectEmailController < ApplicationController
   end
 
   def compose
-    @project = Project.find params[:project_id]
     @email = _find_current_email
 
     if not @email then
@@ -116,6 +115,10 @@ class ProjectEmailController < ApplicationController
   end
 
   private
+
+  def find_project
+    @project = Project.find(params[:project_id])
+  end
 
   def _send_email
     @email.sent_date = DateTime.now
