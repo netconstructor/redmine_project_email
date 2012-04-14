@@ -117,7 +117,9 @@ class ProjectEmailController < ApplicationController
   private
 
   def find_project
-    @project = Project.find(params[:project_id])
+    project_id = params[:project_id]
+    project_id = params[:project_email][:project_id] unless project_id
+    @project = Project.find(project_id)
   end
 
   def _send_email
