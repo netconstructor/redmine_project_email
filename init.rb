@@ -8,7 +8,7 @@ Redmine::Plugin.register :redmine_project_email do
   url 'https://github.com/garrettpauls/redmine_project_email'
 
   project_module :project_email do
-    permission :send_email, { :project_email => [:index, :compose, :view, :save, :delete] }, :require => :member
+    permission :send_email, { :project_email => [:index, :compose, :view, :save, :delete, :edit_copy] }, :require => :member
   end
   menu :project_menu, :project_email, { :controller => :project_email, :action => :index }, :caption => :label_email, :after => :activity, :param => :project_id
 end
